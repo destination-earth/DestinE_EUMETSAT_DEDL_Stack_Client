@@ -9,6 +9,10 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      # IMPORTANT: this permission is mandatory for trusted publishing
+      id-token: write
+      contents: read # See https://github.com/actions/checkout/issues/254#issuecomment-981945812
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
