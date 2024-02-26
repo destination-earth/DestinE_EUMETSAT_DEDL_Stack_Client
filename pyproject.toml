@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dedl-stack-client"
-version = "2024.02.1"
+version = "2024.02.2"
 description = "Python client for DEDL Stack services"
 authors = ["Christoph Reimer <christoph.reimer@eodc.eu>"]
 license = "Apache-2.0"
