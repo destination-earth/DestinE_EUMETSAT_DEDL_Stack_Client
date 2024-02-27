@@ -4,14 +4,14 @@ Python client to facilitate the use of DestinE Data Lake Stack Service.
 
 ## Installation
 
-Install the client library with pip:
+To install the latest version of the client library run:
 ```shell
 pip install dedl-stack-client
 ```
 
 ## Usage
 ### Dask
-An example notebook is provided [here](./examples/client-usage.ipynb).
+An example notebook is provided [here](examples/client-usage.ipynb).
 The client will guide a user through the needed authentication flow and will automatically create dedicated Dask cluster on each DEDL bridge.
 
 ```python
