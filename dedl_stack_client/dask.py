@@ -33,6 +33,12 @@ class DaskMultiCluster:
             "proxy_address": "tcp://dask.lumi.data.destination-earth.eu:80",
             "default_config": {"min": 2, "max": 10},
         },
+        "leonardo": {
+            "name": "LEONARDO Bridge",
+            "address": "http://dask.leonardo.data.destination-earth.eu",
+            "proxy_address": "tcp://dask.leonardo.data.destination-earth.eu:80",
+            "default_config": {"min": 2, "max": 10},
+        },
     }
 
     gateway = {}
