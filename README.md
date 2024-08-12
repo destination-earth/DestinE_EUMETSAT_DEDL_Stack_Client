@@ -31,4 +31,6 @@ with myDEDLClusters.as_current(location="central") as myclient:
     myclient.compute(myarray)
 with myDEDLClusters.as_current(location="lumi") as myclient:
     myclient.compute(myarray)
+with myDEDLClusters.as_current(location="leonardo") as myclient:
+    myclient.compute(myarray)
 ```
