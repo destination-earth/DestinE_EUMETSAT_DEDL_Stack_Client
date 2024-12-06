@@ -1,0 +1,32 @@
+{
+    "central": {
+            "name": "Central Site",
+            "address": "http://dask.central.data.destination-earth.eu",
+            "proxy_address": "tcp://dask.central.data.destination-earth.eu:80",
+            "default_config": {"min": 2, "max": 10}
+        },
+    "lumi": {
+        "name": "LUMI Bridge",
+        "address": "http://dask.lumi.data.destination-earth.eu",
+        "proxy_address": "tcp://dask.lumi.data.destination-earth.eu:80",
+        "default_config": {"min": 2, "max": 10}
+    },
+    "leonardo": {
+        "name": "LEONARDO Bridge",
+        "address": "http://dask.leonardo.data.destination-earth.eu",
+        "proxy_address": "tcp://dask.leonardo.data.destination-earth.eu:80",
+        "default_config": {"min": 2, "max": 10}
+    },
+    "eumetsat": {
+        "name": "EUMETSAT Bridge",
+        "address": "http://dask.eumetsat.data.destination-earth.eu",
+        "proxy_address": "tcp://dask.eumetsat.data.destination-earth.eu:80",
+        "default_config": {"min": 2, "max": 10}
+    },
+    "marenostrum": {
+        "name": "MareNostrum Bridge",
+        "address": "http://dask.marenostrum.data.destination-earth.eu",
+        "proxy_address": "tcp://dask.marenostrum.data.destination-earth.eu:80",
+        "default_config": {"min": 2, "max": 10}
+    }
+}
