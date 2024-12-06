@@ -46,13 +46,16 @@ class DaskMultiCluster:
         for site in self.gateway_registry:
             # connect to gateway
             try:
-                self.gateway[site] = Gateway(
+                gw = Gateway(
                     address=self.gateway_registry[site]["address"],
                     proxy_address=self.gateway_registry[site]["proxy_address"],
                     auth=self.authenticator,
                 )
-            except:
+            except Exception as e:
                 print(f"Error connecting to {{gateway_registry[site]['name']}}")
+                continue
+            else:
+                self.gateway[site] = gw
                 
 
     def print_registry(self):
