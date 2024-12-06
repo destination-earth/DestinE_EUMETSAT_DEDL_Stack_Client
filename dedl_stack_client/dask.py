@@ -17,43 +17,49 @@ Copyright 2024 EODC GmbH
 from dask_gateway import Gateway
 from distributed import Client
 from contextlib import contextmanager
+import requests
 
 
 class DaskMultiCluster:
-    gateway_registry = {
-        "central": {
-            "name": "Central Site",
-            "address": "http://dask.central.data.destination-earth.eu",
-            "proxy_address": "tcp://dask.central.data.destination-earth.eu:80",
-            "default_config": {"min": 2, "max": 10},
-        },
-        "lumi": {
-            "name": "LUMI Bridge",
-            "address": "http://dask.lumi.data.destination-earth.eu",
-            "proxy_address": "tcp://dask.lumi.data.destination-earth.eu:80",
-            "default_config": {"min": 2, "max": 10},
-        },
-        "leonardo": {
-            "name": "LEONARDO Bridge",
-            "address": "http://dask.leonardo.data.destination-earth.eu",
-            "proxy_address": "tcp://dask.leonardo.data.destination-earth.eu:80",
-            "default_config": {"min": 2, "max": 10},
-        },
-    }
-
+    gateway_registry = {}
     gateway = {}
     cluster = {}
     client = {}
 
+    bridges_url = \
+        "https://github.com/destination-earth/"+ \
+        "DestinE_EUMETSAT_DEDL_Stack_Client/"+ \
+        "blob/add-eum-mare-bridges/dedl_stack_client/" + \
+        "bridges.json?raw=true"
+
     def __init__(self, auth):
+        # load bridge configurations
+        bridges_config = requests.get(self.bridges_url)
+        if bridges_config.status_code != 200:
+            bridges_config.raise_for_status()
+        bridges = bridges_config.json()
+
+        # set authenticator
         self.authenticator = auth
-        for site in self.gateway_registry:
+
+        # init Dask Gateways per bridge
+        for site in bridges:
             # connect to gateway
-            self.gateway[site] = Gateway(
-                address=self.gateway_registry[site]["address"],
-                proxy_address=self.gateway_registry[site]["proxy_address"],
-                auth=self.authenticator,
-            )
+            try:
+                gw = Gateway(
+                    address=bridges[site]["address"],
+                    proxy_address=bridges[site]["proxy_address"],
+                    auth=self.authenticator,
+                )
+                # check availability of gateway
+                gw.get_versions()
+            except Exception as e:
+                print(f"Error connecting to {bridges[site]['name']}")
+                continue
+            else:
+                self.gateway_registry[site] = bridges[site]
+                self.gateway[site] = gw
+                
 
     def print_registry(self):
         print(self.gateway_registry)
