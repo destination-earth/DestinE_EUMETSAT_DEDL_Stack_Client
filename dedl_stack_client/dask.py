@@ -34,7 +34,7 @@ class DaskMultiCluster:
 
     def __init__(self, auth):
         # load bridge configurations
-        bridges_config = requests.get(bridges_url)
+        bridges_config = requests.get(self.bridges_url)
         if bridges_config.status_code != 200:
             bridges_config.raise_for_status()
         self.gateway_registry = bridges_config.json()
