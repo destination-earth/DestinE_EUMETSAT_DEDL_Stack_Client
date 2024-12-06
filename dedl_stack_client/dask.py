@@ -37,24 +37,27 @@ class DaskMultiCluster:
         bridges_config = requests.get(self.bridges_url)
         if bridges_config.status_code != 200:
             bridges_config.raise_for_status()
-        self.gateway_registry = bridges_config.json()
+        bridges = bridges_config.json()
 
         # set authenticator
         self.authenticator = auth
 
         # init Dask Gateways per bridge
-        for site in self.gateway_registry:
+        for site in bridges:
             # connect to gateway
             try:
                 gw = Gateway(
-                    address=self.gateway_registry[site]["address"],
-                    proxy_address=self.gateway_registry[site]["proxy_address"],
+                    address=bridges[site]["address"],
+                    proxy_address=bridges[site]["proxy_address"],
                     auth=self.authenticator,
                 )
+                # check availability of gateway
+                gw.get_versions()
             except Exception as e:
-                print(f"Error connecting to {{gateway_registry[site]['name']}}")
+                print(f"Error connecting to {bridges[site]['name']}")
                 continue
             else:
+                self.gateway_registry[site] = bridges[site]
                 self.gateway[site] = gw
                 
 
