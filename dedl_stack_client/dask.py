@@ -27,10 +27,7 @@ class DaskMultiCluster:
     client = {}
 
     bridges_url = \
-        "https://github.com/destination-earth/"+ \
-        "DestinE_EUMETSAT_DEDL_Stack_Client/"+ \
-        "blob/add-eum-mare-bridges/dedl_stack_client/" + \
-        "bridges.json?raw=true"
+        "https://destination-earth.github.io/DestinE_EUMETSAT_DEDL_Stack_Client/bridges.json"
 
     def __init__(self, auth):
         # load bridge configurations
